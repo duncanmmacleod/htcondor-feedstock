@@ -32,7 +32,7 @@ build:
   error_overdepending: true
   error_overlinking: true
   number: 0
-  skip: true  # [not linux]
+  skip: true  # [win]
 
 requirements:
   build:
@@ -48,12 +48,12 @@ requirements:
     - {{ cdt('libselinux') }}  # [linux]
     - boost
     - expat
-    - gct
+    - gct  # [linux]
     - krb5
     - libcurl
     - libuuid  # [unix]
     - libxml2
-    - munge
+    - munge  # [linux]
     - openldap
     - openssl
     - pcre
@@ -117,20 +117,20 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
       host:
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - libuuid  # [linux]
-        - munge
+        - munge  # [linux]
         - openssl
         - pcre
         - voms
         - libgomp  # [linux]
       run:
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
-        - munge
+        - munge  # [linux]
         - openssl
         - pcre
         - voms
@@ -209,7 +209,7 @@ outputs:
     script: install-python.sh
     build:
       ignore_run_exports:
-        - gct
+        - gct  # [linux]
         - libuuid
         - pcre
         - python
@@ -221,11 +221,11 @@ outputs:
         - pkg-config  # [unix]
       host:
         - boost
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - libuuid  # [unix]
-        - munge
+        - munge  # [linux]
         - pcre
         - python
         - setuptools
