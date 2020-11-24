@@ -1,0 +1,13 @@
+diff --git a/src/condor_utils/xform_utils.cpp b/src/condor_utils/xform_utils.cpp
+index dfdedd54a9..e2ec2e0f79 100644
+--- a/src/condor_utils/xform_utils.cpp
++++ b/src/condor_utils/xform_utils.cpp
+@@ -46,7 +46,7 @@
+ #include <set>
+
+ // values for hashtable defaults, these are declared as char rather than as const char to make g++ on fedora shut up.
+-static char OneString[] = "1", ZeroString[] = "0";
++static char ZeroString[] = "0";
+ //static char ParallelNodeString[] = "#pArAlLeLnOdE#";
+ static char UnsetString[] = "";
+

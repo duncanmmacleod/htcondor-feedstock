@@ -29,6 +29,8 @@ source:
     - python-link-condor_utils.patch
     # use conda openssl libraries
     - osx-openssl.patch  # [osx]
+    # remove unused variable on macos
+    - unused-onestring.patch  # [osx]
 
 build:
   error_overdepending: true
