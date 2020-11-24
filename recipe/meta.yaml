@@ -27,6 +27,8 @@ source:
     - man-directory.patch
     # don't rebuild condor_utils for python bindings
     - python-link-condor_utils.patch
+    # use conda openssl libraries
+    - osx-openssl.patch  # [osx]
 
 build:
   error_overdepending: true
