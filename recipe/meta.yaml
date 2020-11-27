@@ -1,5 +1,6 @@
 {% set name = "htcondor" %}
 {% set version = "8_9_10" %}
+{% set build_number = "1" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -27,7 +28,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: {{ build_number }}
   skip: true  # [not linux]
 
 requirements:
@@ -42,7 +43,6 @@ requirements:
     - sysroot_linux-64 2.17  # [linux64]
   host:
     - {{ cdt('libselinux') }}  # [linux]
-    - boost
     - expat
     - gct
     - krb5
@@ -284,10 +284,12 @@ outputs:
       run:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - {{ pin_subpackage('htcondor-procd', exact=True) }}
+        - {{ pin_subpackage('htcondor-utils', exact=True) }}
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - python
-        - {{ pin_subpackage('python-htcondor', exact=True) }}
-        - {{ pin_subpackage('htcondor-utils', exact=True) }}
+        # we pin to this build, but don't use exact=True, to allow flexibility
+        # over which boost version to use
+        - {{ pin_subpackage('python-htcondor', max_pin='x.x.x.x.x.x') }}
     test:
       imports:
         - htcondor
