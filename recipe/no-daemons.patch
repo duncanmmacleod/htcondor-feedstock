@@ -1,0 +1,71 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 3387ed5cf4..9c7bb908df 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -23,8 +23,8 @@
+ 
+ # the 2nd arg is prio order for symbols ripping to prevent .o copy-mindging within the std:u
+ add_subdirectories("${CONDOR_SOURCE_DIR}/src"
+-	"${CONDOR_SOURCE_DIR}/src/bash_completion.d;${CONDOR_SOURCE_DIR}/src/classad_analysis;${CONDOR_SOURCE_DIR}/src/ccb;${CONDOR_SOURCE_DIR}/src/condor_io;${CONDOR_SOURCE_DIR}/src/condor_daemon_client;${CONDOR_SOURCE_DIR}/src/condor_daemon_core.V6;${CONDOR_SOURCE_DIR}/src/condor_procapi;${CONDOR_SOURCE_DIR}/src/condor_procd;${CONDOR_SOURCE_DIR}/src/condor_schedd.V6;${CONDOR_SOURCE_DIR}/src/condor_sysapi;${CONDOR_SOURCE_DIR}/src/condor_utils"
+-	"${CONDOR_SOURCE_DIR}/src/classad;${CONDOR_SOURCE_DIR}/src/safefile")
++	"${CONDOR_SOURCE_DIR}/src/bash_completion.d;${CONDOR_SOURCE_DIR}/src/classad_analysis;${CONDOR_SOURCE_DIR}/src/ccb;${CONDOR_SOURCE_DIR}/src/condor_io;${CONDOR_SOURCE_DIR}/src/condor_daemon_client;${CONDOR_SOURCE_DIR}/src/condor_daemon_core.V6;${CONDOR_SOURCE_DIR}/src/condor_procapi;${CONDOR_SOURCE_DIR}/src/condor_procd;${CONDOR_SOURCE_DIR}/src/condor_schedd.V6;${CONDOR_SOURCE_DIR}/src/condor_sysapi;${CONDOR_SOURCE_DIR}/src/condor_utils"
++	"${CONDOR_SOURCE_DIR}/src/classad;${CONDOR_SOURCE_DIR}/src/safefile;${CONDOR_MASTER_SRC_DIR};${CONDOR_NEGOTIATOR_SRC_DIR};${CONDOR_SOURCE_DIR}/src/condor_shadow.V6.1;${CONDOR_STARTD_SRC_DIR};${CONDOR_SOURCE_DIR}/src/condor_starter.V6.1;${CONDOR_SOURCE_DIR}/src/condor_c-gahp;${CONDOR_SOURCE_DIR}/src/condor_gridmanager;${CONDOR_SOURCE_DIR}/src/condor_transferd;${CONDOR_SOURCE_DIR}/src/nordugrid_gahp")
+ 
+ #if (BUILD_TESTING AND NOT WINDOWS)
+ if (BUILD_TESTING)
+diff --git a/src/condor_scripts/CMakeLists.txt b/src/condor_scripts/CMakeLists.txt
+index 1c39231a62..9393bdb9b2 100644
+--- a/src/condor_scripts/CMakeLists.txt
++++ b/src/condor_scripts/CMakeLists.txt
+@@ -28,7 +28,6 @@ endif(WINDOWS)
+ if (NOT WINDOWS)
+ 
+     install ( FILES condor_run DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+-    install ( FILES condor_updates_stats DESTINATION ${C_SBIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+     install ( FILES condor_gather_info DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+     install ( FILES condor_pool_job_report DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+ 
+@@ -48,7 +47,6 @@ if (NOT WINDOWS)
+ 
+     if (LINUX)
+         install ( FILES linux_kernel_tuning DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+-        install ( FILES condor_aklog condor_credmon_krb DESTINATION ${C_SBIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+     endif(LINUX)
+ 
+ 	install ( FILES condor_qsub DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+diff --git a/src/condor_tools/CMakeLists.txt b/src/condor_tools/CMakeLists.txt
+index 78eb6d7e27..73d50e02aa 100644
+--- a/src/condor_tools/CMakeLists.txt
++++ b/src/condor_tools/CMakeLists.txt
+@@ -21,13 +21,8 @@ condor_exe(condor_evicted_files "evicted_files.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS
+ condor_exe(condor_now "now.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_update_machine_ad "update_machine_ad.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_cod "cod_tool.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_preen "preen.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_testwritelog "testwritelog.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_drain "drain.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_advertise "advertise.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_ping "ping.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_fetchlog "fetch_log.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_sos "sos.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_config_val "config_val.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_userprio "user_prio.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_transform_ads "transform_ads.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+@@ -71,17 +66,9 @@ condor_exe(condor_transfer_data "transfer_data.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS
+ condor_exe(condor_version "version.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_wait "wait.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+ condor_exe(condor_history "history.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_convert_history "convert_history.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+-
+-condor_exe(condor_store_cred "store_cred_main.cpp" ${C_SBIN} "${CONDOR_TOOL_LIBS}" OFF)
+ 
+ condor_exe(condor_vacate "tool.cpp" "${C_BIN}" "${CONDOR_TOOL_LIBS}" OFF)
+-condor_exe(condor_on "tool.cpp" "${C_SBIN}" "${CONDOR_TOOL_LIBS}" OFF)
+ 
+-clone_install(condor_on "${C_SBIN}" "condor_off;condor_restart;condor_reconfig;condor_set_shutdown" "${C_SBIN}")
+-if (WANT_FULL_DEPLOYMENT)
+-    clone_install(condor_on "${C_SBIN}" "condor_set_shutdown" "${C_SBIN}")
+-endif(WANT_FULL_DEPLOYMENT)
+ clone_install(condor_vacate "${C_BIN}" "condor_reschedule" "${C_BIN}")
+ 
+ if (WINDOWS)

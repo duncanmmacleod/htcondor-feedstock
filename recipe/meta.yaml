@@ -14,6 +14,8 @@ source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
   sha256: 237217da6801694ae7c49567e45b4a050d4b0e442171f0d0a45e180f1ed3fe33
   patches:
+    # don't build daemons
+    - no-daemons.patch
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
     # use RPATH, not RUNPATH
@@ -106,28 +108,6 @@ outputs:
         matching is used by the HTCondor central manager to determine the
         compatibility of jobs and workstations where they may be run.
 
-  - name: htcondor-procd
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-    files:
-      - sbin/condor_procd
-    test:
-      commands:
-        - test -x ${PREFIX}/sbin/condor_procd  # [unix]
-    about:
-      home: http://htcondor.org/
-      doc_url: https://htcondor.readthedocs.io/
-      dev_url: https://github.com/htcondor/htcondor
-      license: Apache-2.0
-      license_family: APACHE
-      license_file: LICENSE-2.0.txt
-      summary: HTCondor Process tracking Daemon
-      description: |
-        A daemon for tracking child processes started by a parent.
-        Part of HTCondor, but able to be stand-alone
-
   - name: libcondor_utils
     build:
       run_exports:
@@ -177,14 +157,12 @@ outputs:
       host:
         - {{ cdt('libselinux') }}  # [linux]
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
-        - {{ pin_subpackage("htcondor-procd", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libuuid  # [unix]
         - libgomp  # [linux]
         - voms
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
-        - {{ pin_subpackage("htcondor-procd", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
@@ -285,7 +263,6 @@ outputs:
         - python
       run:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
-        - {{ pin_subpackage('htcondor-procd', exact=True) }}
         - {{ pin_subpackage('htcondor-utils', exact=True) }}
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - python
