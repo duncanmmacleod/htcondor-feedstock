@@ -1,8 +1,10 @@
 #!/bin/bash
 set -eux
 
-mkdir -p _build
-pushd _build
+_builddir="_build"
+rm -rf ${_builddir}
+mkdir -pv ${_builddir}
+pushd ${_builddir}
 
 # add globus header directory to include path
 CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
