@@ -1,0 +1,12 @@
+diff --git a/src/condor_sysapi/idle_time.cpp b/src/condor_sysapi/idle_time.cpp
+index a833e1e078..44a754219d 100644
+--- a/src/condor_sysapi/idle_time.cpp
++++ b/src/condor_sysapi/idle_time.cpp
+@@ -35,6 +35,7 @@
+ */
+ #define dprintf dprintf_hide
+
++#include <uuid/uuid.h>
+ #include <mach/mach.h>
+ #include <IOKit/IOKitLib.h>
+ #include <IOKit/hid/IOHIDLib.h>
