@@ -1,11 +1,11 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 boost:
-- 1.72.0
+- 1.74.0
 c_compiler:
 - clang
 c_compiler_version:
-- '10'
+- '11'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -13,33 +13,29 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '10'
+- '11'
 expat:
-- '2.2'
+- '2'
 krb5:
-- 1.17.1
+- '1.19'
 libcurl:
 - '7'
-libuuid:
-- 2.32.1
 libxml2:
 - '2.9'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 openssl:
 - 1.1.1
+pcre:
+- '8'
 perl:
 - 5.26.2
 pin_run_as_build:
   boost:
     max_pin: x.x.x
-  expat:
-    max_pin: x.x
   krb5:
     max_pin: x.x
   libcurl:
-    max_pin: x
-  libuuid:
     max_pin: x
   libxml2:
     max_pin: x.x
@@ -56,6 +52,7 @@ python:
 - 3.6.* *_cpython
 - 3.7.* *_cpython
 - 3.8.* *_cpython
+- 3.9.* *_cpython
 sqlite:
 - '3'
 target_platform:
