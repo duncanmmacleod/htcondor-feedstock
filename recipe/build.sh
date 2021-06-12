@@ -60,7 +60,7 @@ cmake --build . --parallel ${CPU_COUNT} --target install
 # -- create the condor_config file
 
 CONDOR_CONFIG_LOCATION="etc/condor/condor_config"
-install -m=0644 -T ${RECIPE_DIR}/condor_config ${PREFIX}/${CONDOR_CONFIG_LOCATION}
+install -m 0644 ${RECIPE_DIR}/condor_config ${PREFIX}/${CONDOR_CONFIG_LOCATION}
 
 # -- create activate/deactivate scripts
 
